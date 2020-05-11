@@ -38,7 +38,6 @@ public abstract class Account {
     public void charge(BigDecimal amount) throws NotEnoughMoneyException, NegativeAmountException {
         //TODO: add checks for different situations when charge may not be run successfully
         if (amount<0) {
-            amount.setScale(2);
             throw new NegativeAmountException(String.format(
                     "Negative amount"));
         }
