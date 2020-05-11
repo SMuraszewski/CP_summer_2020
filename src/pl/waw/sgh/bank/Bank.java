@@ -46,9 +46,13 @@ public class Bank {
     }
 
     public void transfer(Integer fromAccountId, Integer toAccountId, Double amount)
-            throws AccountNotFoundException, NotEnoughMoneyException {
-        //TODO: Find relevant account objects given their Ids and perform actions to transfer
-        // Check if account exists etc.
+            throws AccountNotFoundException, NotEnoughMoneyException, NegativeAmountException {
+        //TODO: add checks for different situations when charge may not be run successfully
+        if (smount < 0) {
+            throw new InvalidAmountException("Amount lower than zero");
+        }
+        
+        this.balance = balance.subtract(amount);
         Account fromAccount = findAccountById(fromAccountId);
         Account toAccount = findAccountById(toAccountId);
         fromAccount.charge(amount);
