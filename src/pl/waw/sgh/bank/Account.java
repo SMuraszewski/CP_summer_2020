@@ -31,11 +31,17 @@ public abstract class Account {
     }
 
     public void charge(Double amount) throws NotEnoughMoneyException {
+        
         charge(BigDecimal.valueOf(amount));
     }
 
-    public void charge(BigDecimal amount) throws NotEnoughMoneyException {
+    public void charge(BigDecimal amount) throws NotEnoughMoneyException, NegativeAmountException {
         //TODO: add checks for different situations when charge may not be run successfully
+        if (amount<0) {
+            amount.setScale(2);
+            throw new NegativeAmountException(String.format(
+                    "Negative amount"));
+        }
         if (amount.compareTo(balance)>0) {
             amount.setScale(2);
             throw new NotEnoughMoneyException(String.format(
